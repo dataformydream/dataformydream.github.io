@@ -2054,14 +2054,18 @@ p > code {
 body {
       background-color: #eee;
     }.header {
-        width: 960px;
+        width: Mist 70%;
         margin: 0 auto;
       }
 
       .main-continer {
-        width: 960px;
+        width: Mist 70%;
         margin: 0 auto;
       }
+    
+    .post-body {
+      font-size: 20px !important
+    }
     body {
       color: #555;
     }
@@ -2074,19 +2078,19 @@ body {
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
       background: #eeeeeefe;
     }h1, h2, h3, h4, h5, h6 {
-      color: #555;
+      color: #3b5bdb;
     }
     
     .archive-timeline-title::before {
-      background-color: #555;
+      background-color: #3b5bdb;
     }
     
     .post-title-link::before {
-      background-color: #555;
+      background-color: #3b5bdb;
     }
     
     .node-title::before {
-      background-color: #555;
+      background-color: #3b5bdb;
     }a {
       color: #555;
     }
