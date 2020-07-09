@@ -2172,23 +2172,23 @@ body {
       border-radius: 10px;
     }
     .site-meta {
-      background: #f8f9fa !important;
+      background: #212529 !important;
     }
     .head-top-line {
-      background: #f8f9fa;
+      background: #212529;
     }
     .brand {
-      background: #f8f9fafe;
+      background: #212529fe;
     }
     
       .brand {
         font-weight: bold;
         transform: scale(2);
       }.main-title, .brand {
-      color: #212529 !important;
+      color: #f8f9fa !important;
     }
     .mist .site-title i {
-      background: #212529fe;
+      background: #f8f9fafe;
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
