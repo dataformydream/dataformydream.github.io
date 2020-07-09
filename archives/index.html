@@ -9,7 +9,7 @@
 <meta name="description" content="wangzidong&#39;s blog">
 <meta name="theme-color" content="#212529">
 <title>渊</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1594289658298">
+<link rel="shortcut icon" href="/favicon.ico?v=1594289742368">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -133,6 +133,12 @@
               </li>
             
           
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
           
         </ul>
       </nav>
@@ -1023,6 +1029,531 @@
 </script>
   </div>
 </body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dataformydream.github.io/post/pa-chong-xiu-lian-he-shi-zhan-er-cong-requests-kai-shi-pa-qu-xi-ma-la-ya-quan-zhan-yin-pin-shu-ju-ji-chu-pian/"" data-c="
+          &lt;p&gt;第二篇为利用爬虫基本的requests库和正则表达式爬取喜马拉雅全站数据。&lt;/p&gt;
+&lt;p&gt;申明：本文仅做学习用。&lt;/p&gt;
+&lt;p&gt;多图警告。&lt;br&gt;
+一、常用函数和库&lt;br&gt;
+re&lt;br&gt;
+requests&lt;br&gt;
+os&lt;br&gt;
+json&lt;br&gt;
+random&lt;br&gt;
+二、网站结构分析&lt;br&gt;
+首页 https://www.ximalaya.com/&lt;br&gt;
+       首页为一些音乐的推荐，爬取全站只需关注网站的目录索引网址在哪即可。&lt;/p&gt;
+&lt;p&gt;可发现全部分类的链接为https://www.ximalaya.com/category/，URL地址附加了category字段&lt;/p&gt;
+&lt;p&gt;全部分类 https://www.ximalaya.com/category/&lt;br&gt;
+       这个网页列出了喜马拉雅全站的所有音频分类和链接，可看做要爬取的根目录。一共有三层目录结构，例如：娱乐-音乐-纯音乐。加粗的推荐和分类下的小类实际都为一部分，目录结构可做保存到本地的文件结构的参考，最终只要获取到此页最小的分类的URL即可，例如：纯音乐  https://www.ximalaya.com/yinyue/reci310/&lt;/p&gt;
+&lt;p&gt;开发者工具查看源码逐层分析如下：&lt;/p&gt;
+&lt;p&gt;第一层&lt;/p&gt;
+&lt;p&gt;category_plate _AK类一共有5个，分别对应有声小说、娱乐、知识、生活、特色五个大类，需要获取标题名称，创建分类目录用。&lt;/p&gt;
+&lt;p&gt;标题标签所在：&lt;/p&gt;
+&lt;div class=&#34;anchor _AK&#34; id=&#34;有声小说&#34;&gt;&lt;/div&gt;
+ 获取代码：
+&lt;p&gt;url_response = &#39;&lt;div class=&#34;anchor _AK&#34; id=&#34;有声小说&#34;&gt;&lt;/div&gt;&#39;&lt;/p&gt;
+&lt;h1 id=&#34;获取单个&#34;&gt;获取单个&lt;/h1&gt;
+&lt;p&gt;title = re.search(&#39;&lt;div class=&#34;anchor _AK&#34; id=&#34;(.*?)&#34;&gt;&lt;/div&gt;&#39;, url_response).group(1)&lt;/p&gt;
+&lt;h1 id=&#34;最终获取的是列表&#34;&gt;最终获取的是列表&lt;/h1&gt;
+&lt;p&gt;title_list = re.findall(&#39;&lt;div class=&#34;anchor _AK&#34; id=&#34;(.*?)&#34;&gt;&lt;/div&gt;&#39;, url_response)&lt;br&gt;
+第二层&lt;/p&gt;
+&lt;p&gt;subject_wrapper _AK类为第二层，对应五个大类中的下一类，图中对应有声书，需要获取标题名称，创建分类目录用。&lt;/p&gt;
+&lt;p&gt;有声书的中文标题在subject_wrapper _AK类下的subject _AK类的h2标签中，类型为_AK：&lt;/p&gt;
+&lt;p&gt;&lt;h2 class=&#34;_AK&#34;&gt;&lt;img class=&#34;img _AK&#34; src=&#34;//fdfs.xmcdn.com/group42/M07/B5/00/wKgJ9Fq16BSishjCAAAc2ts5ctw377.png&#34; alt=&#34;&#34;&gt;有声书&lt;/h2&gt;&lt;br&gt;
+ 获取代码：&lt;/p&gt;
+&lt;p&gt;url_response = &#39;&lt;h2 class=&#34;_AK&#34;&gt;&lt;img class=&#34;img _AK&#34; src=&#34;//fdfs.xmcdn.com/group42/M07/B5/00/wKgJ9Fq16BSishjCAAAc2ts5ctw377.png&#34; alt=&#34;&#34;&gt;有声书&lt;/h2&gt;&#39;&lt;br&gt;
+title = re.search(&#39;&lt;h2 class=&#34;_AK&#34;&gt;.&lt;em&gt;?&amp;gt;(.&lt;/em&gt;?)&lt;/h2&gt;&#39;, url_response).group(1)&lt;br&gt;
+title_list = re.findall(&#39;&lt;h2 class=&#34;_AK&#34;&gt;.&lt;em&gt;?&amp;gt;(.&lt;/em&gt;?)&lt;/h2&gt;&#39;, url_response)&lt;br&gt;
+第三层&lt;/p&gt;
+&lt;p&gt;item separator _AK类为第三层，对应最小的一类，需要获取的有URL和标题，URL用来请求分类页面，标题创建分类目录用。&lt;/p&gt;
+&lt;p&gt;这里的URL为一段，和喜马拉雅首页网址拼接即可，例如：https://www.ximalaya.com + /youshengshu/reci231/&lt;/p&gt;
+&lt;p&gt;HTML格式为：&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;item separator _AK&#34; href=&#34;/youshengshu/reci231/&#34;&gt;言情&lt;/a&gt;&lt;br&gt;
+ 获取URL和标题的代码：&lt;/p&gt;
+&lt;p&gt;url_response = &#39;&lt;a class=&#34;item separator _AK&#34; href=&#34;/youshengshu/reci231/&#34;&gt;言情&lt;/a&gt;&#39;&lt;br&gt;
+result = re.search(&#39;&lt;a class=&#34;item separator _AK&#34; href=&#34;(.*?)&#34;&gt;(.*?)&lt;/a&gt;&#39;, url_response)&lt;br&gt;
+url = result.group(1)&lt;br&gt;
+title = result.group(2)&lt;br&gt;
+至此可以通过全部分类https://www.ximalaya.com/category/这个页面获取到所有音频的分类作为本地目录的结构，方便管理和进一步分析，还获取到了最小分类的URL链接字段，用来请求页面，例如：/youshengshu/reci231/&lt;/p&gt;
+&lt;p&gt;基本分类 https://www.ximalaya.com/youshengshu/reci231/&lt;br&gt;
+       这类页面需要获取的有音乐专辑的URL（一页大概有三十个，用来获取专辑页面）和页数（用来爬取全部音频，图中共有34页）&lt;/p&gt;
+&lt;p&gt;暂只爬取免费音频，点此查看喜马拉雅的爬虫规则&lt;/p&gt;
+&lt;p&gt;勾选免费后，URL地址附加了/mr132t2722/字段，https://www.ximalaya.com/youshengshu/reci231/mr132t2722/&lt;/p&gt;
+&lt;p&gt;选择页码后，URL地址附加了/p%d/字段,%d为页码数，https://www.ximalaya.com/youshengshu/reci231/mr132t2722/p2/&lt;/p&gt;
+&lt;p&gt;第一页有两种表示方法，带页码：https://www.ximalaya.com/youshengshu/reci231/mr132t2722/p1/&lt;/p&gt;
+&lt;p&gt;或者不带页码，默认为第一页：https://www.ximalaya.com/youshengshu/reci231/mr132t2722&lt;/p&gt;
+&lt;p&gt;至此这部分要做的工作有三：&lt;/p&gt;
+&lt;p&gt;一、获取此分类的页码数，用来遍历所有页面&lt;/p&gt;
+&lt;p&gt;二、附加免费或其他筛选条件，进行URL拼接，遍历请求所有页面&lt;/p&gt;
+&lt;p&gt;三、获取所有页面的所有音频专辑URL，例如 https://www.ximalaya.com/youshengshu/15778372/&lt;/p&gt;
+&lt;p&gt;开发者工具查看源码分别分析如下：&lt;/p&gt;
+&lt;p&gt;一、获取此分类的页码数，用来遍历所有页面：&lt;/p&gt;
+&lt;p&gt;使用选择工具查看下方页码UI位置的源代码，1,2,3,4,5,...,34,&amp;gt; 这八个框对应class page-item _Xo 和class page-item page-omit _Xo等属性的li标签，要准确地找到最后一页可以查看‘请输入页码’部分的源码，标签类型为quick-jump _Xo,其中有max=&amp;quot;34&amp;quot;,为最大页码。&lt;/p&gt;
+&lt;p&gt;所在HTML标签如下：&lt;/p&gt;
+&lt;div class=&#34;quick-jump _Xo&#34;&gt;&lt;form&gt;&lt;input type=&#34;text&#34; class=&#34;_Xo&#34; style=&#34;display: none;&#34;&gt;&lt;input type=&#34;number&#34; placeholder=&#34;请输入页码&#34; step=&#34;1&#34; min=&#34;1&#34; max=&#34;34&#34; class=&#34;control-input _Xo&#34; value=&#34;&#34;&gt;&lt;button disabled=&#34;&#34; type=&#34;button&#34; class=&#34;btn disabled _Xo&#34;&gt;跳转&lt;/button&gt;&lt;/form&gt;&lt;/div&gt;
+获取代码：
+&lt;p&gt;url_response = &#39;&lt;div class=&#34;quick-jump _Xo&#34;&gt;&lt;form&gt;&lt;input type=&#34;text&#34; class=&#34;_Xo&#34; style=&#34;display: none;&#34;&gt;&lt;input type=&#34;number&#34; placeholder=&#34;请输入页码&#34; step=&#34;1&#34; min=&#34;1&#34; max=&#34;34&#34; class=&#34;control-input _Xo&#34; value=&#34;&#34;&gt;&lt;button disabled=&#34;&#34; type=&#34;button&#34; class=&#34;btn disabled _Xo&#34;&gt;跳转&lt;/button&gt;&lt;/form&gt;&lt;/div&gt;&#39;&lt;br&gt;
+max_page = re.search(&#39;&amp;lt;div class=&amp;quot;quick-jump.&lt;em&gt;?max=&amp;quot;(\d&lt;/em&gt;)&amp;quot;&#39;, url_response).group(1)&lt;br&gt;
+ 二、附加免费或其他筛选条件，进行URL拼接，遍历请求所有页面:&lt;/p&gt;
+&lt;p&gt;暂没有找到URL的join函数，遂自己写一个拼接函数&lt;/p&gt;
+&lt;p&gt;输入：任意个有顺序的URL字段，/符号会自动补全和对齐，多余的删去，可为:&lt;/p&gt;
+&lt;p&gt;&#39;https://www.ximalaya.com/&#39;, &#39;https://www.ximalaya.com&#39;,&lt;br&gt;
+&#39;/youshengshu/&#39;, &#39;/youshengshu&#39;,&#39;youshengshu/&#39;,&#39;youshengshu&#39;&lt;br&gt;
+&#39;/214214/&#39;,&#39;214214/&#39;,&#39;/214214&#39;,&#39;214214&#39;&lt;br&gt;
+def url_join(*url_list):&lt;br&gt;
+full_url = &#39;&#39;&lt;br&gt;
+for url in url_list:&lt;br&gt;
+url = url.strip(&#39;/&#39;)&lt;br&gt;
+full_url += url + &amp;quot;/&amp;quot;&lt;br&gt;
+return full_url&lt;/p&gt;
+&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &#39;&lt;strong&gt;main&lt;/strong&gt;&#39;:&lt;br&gt;
+print(url_join(&#39;https://www.ximalaya.com/&#39;, &#39;/youshengshu/&#39;, &#39;/214214/&#39;))&lt;br&gt;
+print(url_join(&#39;https://www.ximalaya.com/&#39;, &#39;/youshengshu/&#39;, &#39;/reci231/&#39;, &#39;/mr132t2722/&#39;, &#39;p2&#39;))&lt;br&gt;
+三、获取页面的所有音频专辑URL：&lt;/p&gt;
+&lt;p&gt;如图：一页中所有的专辑都在content类的div标签下，每一个音频专辑都是一个li标签，一页有三十个&lt;/p&gt;
+&lt;p&gt;点开一个li标签，album-wrapper  sm _Ht 属性的div标签下有三个子节点，&lt;div&gt;(网站结构相关)，两个&lt;a&gt;分别为专辑信息和作者信息,&lt;/p&gt;
+&lt;p&gt;Html代码如下：&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;album-title line-1 lg bold _Ht&#34; title=&#34;一吻成瘾：总裁撩不起！|爆笑甜宠免费多人小说&#34; href=&#34;/youshengshu/35712959/&#34;&gt;&lt;span class=&#34;v-m _Ht&#34;&gt;一吻成瘾：总裁撩不起！|爆笑甜宠免费多人小说&lt;/span&gt;&lt;/a&gt;&lt;br&gt;
+&lt;a class=&#34;album-author _Ht&#34; title=&#34;半纸鸿鹊&#34; href=&#34;/zhubo/13120911/&#34;&gt;半纸鸿鹊&lt;/a&gt;&lt;br&gt;
+这里可获取到专辑名（title）、URL（href）、作者（title）、作者详情页（href）,代码如下：&lt;/p&gt;
+&lt;p&gt;url_response1 = &#39;&lt;a class=&#34;album-title line-1 lg bold _Ht&#34; title=&#34;一吻成瘾：总裁撩不起！|爆笑甜宠免费多人小说&#34; href=&#34;/youshengshu/35712959/&#34;&gt;&lt;span class=&#34;v-m _Ht&#34;&gt;一吻成瘾：总裁撩不起！|爆笑甜宠免费多人小说&lt;/span&gt;&lt;/a&gt;&#39;&lt;br&gt;
+url_response2 = &#39;&lt;a class=&#34;album-author _Ht&#34; title=&#34;半纸鸿鹊&#34; href=&#34;/zhubo/13120911/&#34;&gt;半纸鸿鹊&lt;/a&gt;&#39;&lt;br&gt;
+result = re.search(&#39;&amp;lt;a class=&amp;quot;album-title.&lt;em&gt;?title=&amp;quot;(.&lt;/em&gt;?)&amp;quot; href=&amp;quot;(.*?)&amp;quot;&amp;gt;&#39;, url_response1)&lt;br&gt;
+result2 = re.search(&#39;&lt;a class=&#34;album-author _Ht&#34; title=&#34;(.*?)&#34; href=&#34;(.*?)&#34;&gt;&#39;, url_response2)&lt;br&gt;
+print(result2.group(1), result2.group(2))&lt;br&gt;
+print(result.group(1), result.group(2))&lt;br&gt;
+ 所有的音频专辑可以用re.findall()来获取，作者和专辑的对应关系，还有之前的类别所属关系可以用代码实现来一一对应。&lt;/p&gt;
+&lt;p&gt;专辑页面 https://www.ximalaya.com/yinyue/24041806/&lt;br&gt;
+这类页面可以看到音频目录了，和之前类似，需要获取的有每个音频的链接和最大页数，并且获取title作为音频名。&lt;/p&gt;
+&lt;p&gt;一个&lt;li&gt;标签对应一个音频链接，获取代码如下：例如  https://www.ximalaya.com/yinyue/24041806/294025103&lt;/p&gt;
+&lt;p&gt;url_response=&#39;&lt;div class=&#34;text _Vc&#34;&gt;&lt;a title=&#34;杜克 - 天赐的礼物&#34; href=&#34;/yinyue/24041806/294025103&#34;&gt;&lt;span class=&#34;title _Vc&#34;&gt;杜克 - 天赐的礼物&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&#39;&lt;br&gt;
+result=re.search(&#39;&lt;div class=&#34;text _Vc&#34;&gt;&lt;a title=&#34;(.*?)&#34; href=&#34;(.*?)&#34;&gt;&#39;,url_response)&lt;br&gt;
+title=result.group(1)&lt;br&gt;
+url=result.group(2)&lt;/p&gt;
+&lt;p&gt;页码获取方式和之前相同，re.search即可：&lt;/p&gt;
+&lt;p&gt;url_response=&#39;&lt;div class=&#34;quick-jump _Xo&#34;&gt;&lt;form&gt;&lt;input type=&#34;text&#34; style=&#34;display:none&#34; class=&#34;_Xo&#34;&gt;&lt;input type=&#34;number&#34; placeholder=&#34;请输入页码&#34; step=&#34;1&#34; min=&#34;1&#34; max=&#34;2&#34; class=&#34;control-input _Xo&#34; value=&#34;&#34;&gt;&lt;button disabled=&#34;&#34; type=&#34;button&#34; class=&#34;btn disabled _Xo&#34;&gt;跳转&lt;/button&gt;&lt;/form&gt;&lt;/div&gt;&#39;&lt;br&gt;
+max_page = re.search(&#39;&amp;lt;div class=&amp;quot;quick-jump.&lt;em&gt;?max=&amp;quot;(\d&lt;/em&gt;)&amp;quot;&#39;, url_response).group(1)&lt;br&gt;
+音频页面 https://www.ximalaya.com/yinyue/24041806/294025103&lt;br&gt;
+本页面只关心怎样抓取音频到本地，其实只需要上一步知道音频的ID就可以抓取了，不需要get这个页面，减少运行时间。&lt;/p&gt;
+&lt;p&gt;目前可以总结出https://www.ximalaya.com/yinyue/24041806/294025103 这种类型URL的结构&lt;/p&gt;
+&lt;p&gt;/yinyue/24041806/为本专辑所在类别和专辑的ID   /294025103为专辑中这首歌的ID&lt;/p&gt;
+&lt;p&gt;首先要找到音频在哪里，是什么格式，先不点击播放按钮，Ctrl+R刷新一下，选择network下的media选项，此时没有文件，点击播放。&lt;/p&gt;
+&lt;p&gt;点击播放后， 服务器才反馈了一个m4a格式的音频回来，这个m4a音频就是我们最终要爬取到本地的音频。&lt;/p&gt;
+&lt;p&gt;点击此音频可以查看是怎么得来的，可以发现https://aod.cos.tx.xmcdn.com/group79/M0A/2C/D7/wKgPEF61_vTQesvyACFUpjNDga8099.m4a&lt;/p&gt;
+&lt;p&gt;就是要获取的音频地址，request headers中也找到了这个音频的ID的URL ，https://www.ximalaya.com/yinyue/24041806/294025103&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;这里音频地址和实际的音频ID并没有什么明显的对应关系，并不能通过音频ID直接获取到音频地址，需要找到发送请求的过程。&lt;/p&gt;
+&lt;p&gt;发送请求的代码明显在点击播放按钮之后才发生了一次请求。这里选择network下的all选项，显示出音频网页的所有文件。&lt;/p&gt;
+&lt;p&gt;文件条数很多，很难找到点击后那些发生了变化，这里clear一下再点击播放一次。&lt;/p&gt;
+&lt;p&gt;可以发现发生变化的文件就这么多，m4a格式的为返回的音频，跳过，和音频ID 294025103相关的只有两个，点击查看即可，选择preview选项。&lt;/p&gt;
+&lt;p&gt;其中show?id开头的preview中找不到音频，跳过。&lt;/p&gt;
+&lt;p&gt;audio?id=294025103&amp;amp;ptype=1 这个文件即为要找的。&lt;/p&gt;
+&lt;p&gt;看到了m4a音频地址，正是服务器返回的音频文件地址，查看headers了解请求的URL是什么：&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;GET方式发送了一个URL，其中带有这个音频的ID，获取到了一个网页。&lt;/p&gt;
+&lt;p&gt;URL的格式为：https://www.ximalaya.com/revision/play/v1/audio?id=294025103&amp;amp;ptype=1  获取到的即为preview中的内容。&lt;/p&gt;
+&lt;p&gt;实际上通过音频ID构造了一个URL，向服务器请求了一次，返回的网页中有音频的地址，再拿来播放。&lt;/p&gt;
+&lt;p&gt;则要爬取音频需要做三件事：&lt;/p&gt;
+&lt;p&gt;1、构造URL请求服务器&lt;/p&gt;
+&lt;p&gt;2、在返回的网页中找到音频地址&lt;/p&gt;
+&lt;p&gt;3、保存音频到本地&lt;/p&gt;
+&lt;p&gt;代码如下：&lt;/p&gt;
+&lt;p&gt;id = &#39;294025103&#39;&lt;br&gt;
+headers = {&lt;br&gt;
+&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&#39;,&lt;br&gt;
+&#39;xm-sign&#39;: &#39;596a655ba451ba8bf2b5541c5b029637(5)1589538181620(70)1589537946332&#39;}&lt;br&gt;
+url = f&#39;https://www.ximalaya.com/revision/play/v1/audio?id={id}&amp;amp;ptype=1&#39;&lt;br&gt;
+response = requests.get(url, headers=headers)&lt;br&gt;
+m4a_url = re.search(&#39;&amp;quot;src&amp;quot;:&amp;quot;(.*?)&amp;quot;&#39;, response.text).group(1)&lt;br&gt;
+with open(&#39;name.m4a&#39;, &#39;wb&#39;) as f:&lt;br&gt;
+f.write(requests.get(m4a_url, headers=headers).content)&lt;br&gt;
+headers和xm-sign 反爬的问题之后代码会解决，不添加头会被识别出来，只返回一个200的状态码。&lt;/p&gt;
+&lt;p&gt;xm-sign生成&lt;br&gt;
+暂参考这两篇博客，具体分析会放到进阶篇。&lt;/p&gt;
+&lt;p&gt;https://blog.csdn.net/steadyhzc/article/details/99708520&lt;/p&gt;
+&lt;p&gt;https://blog.csdn.net/BigBoy_Coder/article/details/103406332&lt;/p&gt;
+&lt;p&gt;至此网站结构分析结束。&lt;/p&gt;
+&lt;p&gt;三、代码架构和实现&lt;br&gt;
+编写多个函数模块，添加了代理池（免费的，很容易挂）、请求头、xm-sign校验，单线程爬取，亲测速度较慢，优点是居然还能用吧，很稳定，居然没报错（滑稽）。耗时主要在获取到m4a文件地址后保存到本地的时间较长，一个居然要10秒左右，浏览器保存只要1-2秒，进阶篇再分析一下，可能跟代理网速有关。。。&lt;/p&gt;
+&lt;p&gt;若要稳定使用请多添加可用的代理IP，本文仅做学习交流用，实际效率感人，请勿恶意爬取。&lt;/p&gt;
+&lt;p&gt;已实现功能：&lt;/p&gt;
+&lt;p&gt;代理池随即选取代理&lt;br&gt;
+遍历爬取全站&lt;br&gt;
+可指定爬取范围，默认全站全类别&lt;br&gt;
+已经爬取到本地的不会重复爬取，可获取网站更新&lt;br&gt;
+建立类别为主的多层目录结构，将所有信息保存到json文件中，方便数据处理&lt;br&gt;
+交互和显示&lt;br&gt;
+#!user/bin/env python&lt;/p&gt;
+&lt;h1 id=&#34;-encodingutf-8-&#34;&gt;-&lt;em&gt;- encoding=utf-8 -&lt;/em&gt;-&lt;/h1&gt;
+&lt;p&gt;import os&lt;br&gt;
+import re&lt;br&gt;
+import requests&lt;br&gt;
+import json&lt;br&gt;
+import random&lt;br&gt;
+from xm_sign import get_sign&lt;/p&gt;
+&lt;p&gt;headers = {&amp;quot;User-Agent&amp;quot;: &amp;quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&amp;quot;&lt;br&gt;
+&amp;quot; AppleWebKit/537.36 (KHTML, like Gecko) &amp;quot;&lt;br&gt;
+&amp;quot;Chrome/81.0.4044.138 Safari/537.36&amp;quot;,&lt;br&gt;
+&amp;quot;xm-sign&amp;quot;: get_sign()}&lt;br&gt;
+root_url = &#39;https://www.ximalaya.com&#39;&lt;/p&gt;
+&lt;p&gt;proxies = [&#39;http://180.124.87.176:4216&#39;,&lt;br&gt;
+&#39;http://182.108.45.238:1624&#39;,&lt;br&gt;
+&#39;http://180.123.95.218:4216&#39;,&lt;br&gt;
+&#39;http://115.219.115.184:3000&#39;]&lt;/p&gt;
+&lt;h1 id=&#34;url拼接函数&#34;&gt;url拼接函数&lt;/h1&gt;
+&lt;p&gt;def url_join(*url_list):&lt;br&gt;
+full_url = &#39;&#39;&lt;br&gt;
+for url in url_list:&lt;br&gt;
+url = url.strip(&#39;/&#39;)&lt;br&gt;
+full_url += url + &amp;quot;/&amp;quot;&lt;br&gt;
+return full_url&lt;/p&gt;
+&lt;h1 id=&#34;基本的网页请求函数&#34;&gt;基本的网页请求函数&lt;/h1&gt;
+&lt;p&gt;def get_response(url, referer=None):&lt;br&gt;
+try:&lt;br&gt;
+headers[&amp;quot;xm-sign&amp;quot;] = get_sign()&lt;br&gt;
+headers[&#39;Referer&#39;] = referer&lt;br&gt;
+response = requests.get(url, headers=headers, proxies={&#39;http&#39;: random.choice(proxies)}, timeout=None)&lt;br&gt;
+# response.raise_for_status()&lt;br&gt;
+# print(response.status_code)&lt;br&gt;
+response.encoding = response.apparent_encoding&lt;br&gt;
+return response&lt;br&gt;
+except:&lt;br&gt;
+# 失败则重新更新xm-sign一次&lt;br&gt;
+print(&#39;被识别！去掉代理&#39;)&lt;br&gt;
+headers[&amp;quot;xm-sign&amp;quot;] = get_sign()&lt;br&gt;
+response = requests.get(url, headers=headers, timeout=None)&lt;br&gt;
+response.encoding = response.apparent_encoding&lt;br&gt;
+return response&lt;/p&gt;
+&lt;p&gt;&#39;&#39;&#39;首先爬取全部分类，返回为最小分类的URL字典，外层嵌套列表，以最小分类为列表元素，[{url,板块,大类,小类},{...},...]&lt;br&gt;
+例如{&#39;url&#39;:&#39;https://www.ximalaya.com/yinyue/reci310/&#39;,&#39;plate&#39;:&#39;娱乐&#39;,&lt;br&gt;
+&#39;category&#39;:&#39;音乐&#39;,&#39;subcategory&#39;:&#39;纯音乐&#39;}代表 纯音乐 这个小类&#39;&#39;&#39;&lt;/p&gt;
+&lt;p&gt;def get_category():&lt;br&gt;
+print(&#39;获取目录中...&#39;)&lt;br&gt;
+category = list()&lt;br&gt;
+category_url = url_join(root_url, &#39;category&#39;)&lt;br&gt;
+response = get_response(category_url)&lt;br&gt;
+plate_list = response.text.split(&#39;&lt;div class=&#34;category_plate _AK&#34;&gt;&#39;)[1:]&lt;br&gt;
+category_number = 0&lt;br&gt;
+for plate_html in plate_list:&lt;br&gt;
+plate_title = re.search(&#39;&lt;div class=&#34;anchor _AK&#34; id=&#34;(.*?)&#34;&gt;&lt;/div&gt;&#39;, plate_html).group(1)&lt;br&gt;
+category_list = plate_html.split(&#39;&lt;section class=&#34;subject_wrapper _AK&#34;&gt;&#39;)[1:]&lt;br&gt;
+category_number += len(category_list)&lt;br&gt;
+for category_html in category_list:&lt;br&gt;
+category_title = re.search(&#39;&lt;h2 class=&#34;_AK&#34;&gt;.&lt;em&gt;?&amp;gt;(.&lt;/em&gt;?)&lt;/h2&gt;&#39;, category_html).group(1)&lt;br&gt;
+subcategory_list = re.findall(&#39;&lt;a class=&#34;item separator _AK&#34; href=&#34;(.*?)&#34;&gt;(.*?)&lt;/a&gt;&#39;, category_html)&lt;br&gt;
+for subcategory in subcategory_list:&lt;br&gt;
+unit = {&#39;url&#39;: url_join(root_url, subcategory[0]), &#39;plate&#39;: plate_title,&lt;br&gt;
+&#39;category&#39;: category_title, &#39;subcategory&#39;: subcategory[1]}&lt;br&gt;
+category.append(unit)&lt;br&gt;
+print(f&#39;获取到所有分类!\n{len(plate_list)}个板块，{category_number}个大类，一共有{len(category)}个小类&#39;)&lt;br&gt;
+return category&lt;/p&gt;
+&lt;p&gt;&#39;&#39;&#39;接着爬取一个分类所有页面的全部音频专辑，返回为音频专辑的URL字典，外层嵌套列表，[{title,url,author,author_url},{...},...]&lt;br&gt;
+例如{&#39;url&#39;:&#39;https://www.ximalaya.com/youshengshu/35712959/&#39;,&#39;title&#39;:&#39;一吻成瘾：总裁撩不起！|爆笑甜宠免费多人小说&#39;,&lt;br&gt;
+&#39;author&#39;:&#39;半纸鸿鹊&#39;,&#39;author_url&#39;:&#39;/zhubo/13120911/&#39;}代表一个专辑&#39;&#39;&#39;&lt;/p&gt;
+&lt;p&gt;def get_album(category_url):&lt;br&gt;
+print(&#39;获取此分类所有专辑中...&#39;)&lt;br&gt;
+album = list()&lt;br&gt;
+free_url = url_join(category_url, &#39;mr132t2722/&#39;)&lt;br&gt;
+response = get_response(free_url, referer=category_url)&lt;br&gt;
+page_number = re.search(r&#39;&amp;lt;div class=&amp;quot;quick-jump.&lt;em&gt;?max=&amp;quot;(\d&lt;/em&gt;)&amp;quot;&#39;, response.text).group(1)&lt;br&gt;
+for page in range(1, int(page_number)):&lt;br&gt;
+print(f&#39;正在获取第{page}页专辑...&#39;)&lt;br&gt;
+full_url = url_join(free_url, f&#39;p{page}/&#39;)&lt;br&gt;
+response = get_response(full_url, referer=category_url)&lt;br&gt;
+album_list = re.findall(&#39;&lt;li&gt;(.&lt;em&gt;?)&lt;/li&gt;&#39;, response.text, re.S)&lt;br&gt;
+for album_html in album_list:&lt;br&gt;
+album_data = re.search(&#39;&amp;lt;a class=&amp;quot;album-title.&lt;/em&gt;?title=&amp;quot;(.&lt;em&gt;?)&amp;quot; href=&amp;quot;(.&lt;/em&gt;?)&amp;quot;&amp;gt;&#39;, album_html)&lt;br&gt;
+author_data = re.search(&#39;&lt;a class=&#34;album-author _Ht&#34; title=&#34;(.*?)&#34; href=&#34;(.*?)&#34;&gt;&#39;, album_html)&lt;br&gt;
+unit = {&#39;url&#39;: url_join(root_url, album_data.group(2)), &#39;title&#39;: album_data.group(1),&lt;br&gt;
+&#39;author&#39;: author_data.group(1), &#39;author_url&#39;: url_join(root_url, author_data.group(2))}&lt;br&gt;
+album.append(unit)&lt;br&gt;
+print(unit)&lt;br&gt;
+print(&#39;此分类所有专辑获取完毕！&#39;)&lt;br&gt;
+return album&lt;/p&gt;
+&lt;p&gt;&#39;&#39;&#39;接着爬取一个专辑所有页面的全部音频id，构造URL请求服务器返回数据，找到m4a地址。&lt;br&gt;
+返回为此专辑所有音频的URL字典嵌套列表,[{m4a_id,m4a_url,title},{...},...]&lt;br&gt;
+例如{&#39;m4a_id&#39;:&#39;294025103&#39;,&#39;title&#39;:&#39;杜克 - 天赐的礼物&#39;,&#39;m4a_url&#39;:&lt;br&gt;
+&#39;https://aod.cos.tx.xmcdn.com/group79/M0A/2C/D7/wKgPEF61_vTQesvyACFUpjNDga8099.m4a&#39;}&lt;br&gt;
+代表一个音频&#39;&#39;&#39;&lt;/p&gt;
+&lt;p&gt;def get_m4a(album_url):&lt;br&gt;
+print(&#39;获取此专辑所有音频中...&#39;)&lt;br&gt;
+m4a = list()&lt;br&gt;
+response = get_response(album_url, referer=album_url)&lt;br&gt;
+page_number = re.search(r&#39;&amp;lt;div class=&amp;quot;quick-jump.&lt;em&gt;?max=&amp;quot;(\d&lt;/em&gt;)&amp;quot;&#39;, response.text).group(1)&lt;br&gt;
+for page in range(1, int(page_number)):&lt;br&gt;
+print(f&#39;正在获取第{page}页音频...&#39;)&lt;br&gt;
+response = get_response(url_join(album_url, f&#39;p{page}/&#39;), referer=album_url)&lt;br&gt;
+m4a_list = re.findall(&#39;&lt;div class=&#34;text _Vc&#34;&gt;&lt;a title=&#34;(.*?)&#34; href=&#34;(.*?)&#34;&gt;&#39;, response.text, re.S)&lt;br&gt;
+for m4a_data in m4a_list:&lt;br&gt;
+title = m4a_data[0]&lt;br&gt;
+m4a_id = m4a_data[1].split(&#39;/&#39;)[-1]&lt;br&gt;
+full_url = f&#39;https://www.ximalaya.com/revision/play/v1/audio?id={m4a_id}&amp;amp;ptype=1&#39;&lt;br&gt;
+m4a_url = re.search(&#39;&amp;quot;src&amp;quot;:&amp;quot;(.*?)&amp;quot;&#39;, get_response(full_url, album_url).text).group(1)&lt;br&gt;
+unit = {&#39;m4a_id&#39;: m4a_id, &#39;title&#39;: title, &#39;m4a_url&#39;: m4a_url}&lt;br&gt;
+m4a.append(unit)&lt;br&gt;
+print(unit)&lt;br&gt;
+print(&#39;此专辑所有音频获取完毕！&#39;)&lt;br&gt;
+return m4a&lt;/p&gt;
+&lt;p&gt;def download_m4a(path, url, referer):&lt;br&gt;
+if not os.path.exists(path):&lt;br&gt;
+print(f&#39;开始下载：{path}&#39;)&lt;br&gt;
+with open(path, &#39;wb&#39;) as f:&lt;br&gt;
+f.write(get_response(url, referer=referer).content)&lt;br&gt;
+print(f&#39;下载完毕：{path}&#39;)&lt;br&gt;
+else:&lt;br&gt;
+print(&#39;此音频已下载。&#39;)&lt;/p&gt;
+&lt;h1 id=&#34;整合各部分函数实现遍历爬取跳过已经爬取到本地的更新网站的新内容可指定范围爬取也可全站爬取同时保存信息到json文件&#34;&gt;整合各部分函数实现遍历爬取，跳过已经爬取到本地的，更新网站的新内容，可指定范围爬取，也可全站爬取，同时保存信息到json文件&lt;/h1&gt;
+&lt;p&gt;def main(root_path):&lt;br&gt;
+if not os.path.exists(root_path):&lt;br&gt;
+os.makedirs(root_path)&lt;br&gt;
+flag = False&lt;br&gt;
+limit_list = input(&#39;请输入要限制爬取的类，可选目录中的所有大中小类别&#39;&lt;br&gt;
+&#39;(多个请用空格隔开,若无请按回车键)：\n&#39;).strip(&#39; &#39;).split(&#39; &#39;)&lt;br&gt;
+category = get_category()&lt;br&gt;
+if limit_list == [&#39;&#39;]:&lt;br&gt;
+flag = True&lt;br&gt;
+with open(os.path.join(root_path, &#39;category.json&#39;), &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:&lt;br&gt;
+json.dump(category, f, indent=4, separators=(&#39;,&#39;, &#39;😂)&lt;br&gt;
+for unit_limit in limit_list:&lt;br&gt;
+for unit_category in category:&lt;br&gt;
+if unit_limit in str(unit_category) or flag:&lt;br&gt;
+print(f&#39;正在爬取的类:{unit_category}&#39;)&lt;br&gt;
+current_path = os.path.join(root_path, unit_category[&#39;plate&#39;], unit_category[&#39;category&#39;],&lt;br&gt;
+unit_category[&#39;subcategory&#39;])&lt;br&gt;
+if not os.path.exists(current_path):&lt;br&gt;
+os.makedirs(current_path)&lt;br&gt;
+album = get_album(unit_category[&#39;url&#39;])&lt;br&gt;
+with open(os.path.join(current_path, &#39;album.json&#39;), &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:&lt;br&gt;
+json.dump(album, f, indent=4, separators=(&#39;,&#39;, &#39;😂)&lt;br&gt;
+for unit_album in album:&lt;br&gt;
+album_name = rename(unit_album[&#39;title&#39;])&lt;br&gt;
+print(f&#39;正在爬取的专辑:{album_name}&#39;)&lt;br&gt;
+album_path = os.path.join(current_path, album_name)&lt;br&gt;
+if not os.path.exists(album_path):&lt;br&gt;
+os.makedirs(album_path)&lt;br&gt;
+m4a_list = get_m4a(unit_album[&#39;url&#39;])&lt;br&gt;
+with open(os.path.join(album_path, &#39;m4a.json&#39;), &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:&lt;br&gt;
+json.dump(m4a_list, f, indent=4, separators=(&#39;,&#39;, &#39;😂)&lt;br&gt;
+for m4a in m4a_list:&lt;br&gt;
+m4a_name = rename(m4a[&#39;title&#39;])&lt;br&gt;
+m4a_path = os.path.join(album_path, f&#39;{m4a_name}.m4a&#39;)&lt;br&gt;
+download_m4a(m4a_path, m4a[&#39;m4a_url&#39;], unit_album[&#39;url&#39;])&lt;/p&gt;
+&lt;p&gt;def rename(name):&lt;br&gt;
+new_name = re.sub(r&#39;\s|?|&amp;quot;|&amp;lt;|&amp;gt;|*|||:|&#39;, &#39;&#39;, name)&lt;br&gt;
+return new_name&lt;/p&gt;
+&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &amp;quot;&lt;strong&gt;main&lt;/strong&gt;&amp;quot;:&lt;br&gt;
+data_path = input(&#39;请输入数据存储的根目录：\n&#39;)&lt;br&gt;
+if data_path == &#39;&#39;:&lt;br&gt;
+data_path = &#39;G:\喜马拉雅&#39;&lt;br&gt;
+main(data_path)&lt;br&gt;
+自己修改后的xm_sign文件&lt;/p&gt;
+&lt;p&gt;import requests&lt;br&gt;
+import time&lt;br&gt;
+import hashlib&lt;br&gt;
+import random&lt;/p&gt;
+&lt;p&gt;headers = {&lt;br&gt;
+&amp;quot;User-Agent&amp;quot;: &amp;quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) &amp;quot;&lt;br&gt;
+&amp;quot;AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36&amp;quot;}&lt;/p&gt;
+&lt;p&gt;def get_server_time():&lt;br&gt;
+# 获取喜马拉雅服务器的时间戳&lt;br&gt;
+# 这个地址就是返回服务器时间戳的接口&lt;br&gt;
+server_lime_url = &amp;quot;https://www.ximalaya.com/revision/time&amp;quot;&lt;br&gt;
+response = requests.get(server_lime_url, headers=headers)&lt;br&gt;
+return response.text&lt;/p&gt;
+&lt;p&gt;def create_sign(server_time):&lt;br&gt;
+&amp;quot;&amp;quot;&amp;quot;&lt;br&gt;
+生成 xm-sign&lt;br&gt;
+规则是 md5(ximalaya-服务器时间戳)(100以内随机数)服务器时间戳(100以内随机数)现在时间戳&lt;br&gt;
+&amp;quot;&amp;quot;&amp;quot;&lt;br&gt;
+now_time = str(round(time.time() * 1000))&lt;br&gt;
+sign = str(hashlib.md5(&amp;quot;himalaya-{}&amp;quot;.format(server_time).encode()).hexdigest()) + &amp;quot;({})&amp;quot;.format(&lt;br&gt;
+str(round(random.random() * 100))) + server_time + &amp;quot;({})&amp;quot;.format(str(round(random.random() * 100))) + now_time&lt;br&gt;
+# 将xm-sign添加到请求头中&lt;br&gt;
+headers[&amp;quot;xm-sign&amp;quot;] = sign&lt;br&gt;
+return sign&lt;/p&gt;
+&lt;p&gt;def get_sign():&lt;br&gt;
+server_time = get_server_time()&lt;br&gt;
+sign = create_sign(server_time)&lt;br&gt;
+return sign&lt;br&gt;
+ &lt;br&gt;
+————————————————&lt;br&gt;
+版权声明：本文为CSDN博主「dataformydream」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。&lt;br&gt;
+原文链接：https://blog.csdn.net/dataformydream/article/details/106139767&lt;/p&gt;
+">【爬虫修炼和实战】二、从requests开始——爬取喜马拉雅全站音频数据(基础篇)</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dataformydream.github.io/post/spider1/"" data-c="
+          &lt;p&gt;第一篇暂记录一些已掌握和要用到的参考资料，备案参考，不定时更新，排列顺序大致为难度由浅入深，均可白嫖。&lt;/p&gt;
+&lt;p&gt;##书籍&lt;br&gt;
+《Python编程：从入门到实践》&lt;br&gt;
+《流畅的Python》&lt;br&gt;
+《Python 3网络爬虫开发实战》&lt;br&gt;
+《Linux 命令行大全》&lt;br&gt;
+##视频&lt;br&gt;
+用Python玩转数据（MOOC）&lt;br&gt;
+python6小时完全入门（b站）&lt;br&gt;
+Python网络爬虫与信息提取（MOOC）&lt;br&gt;
+Django教程&lt;br&gt;
+##文档&lt;br&gt;
+python官方教程&lt;br&gt;
+Requests官方文档&lt;br&gt;
+Python ABC（网易云课堂）&lt;br&gt;
+菜鸟python教程&lt;br&gt;
+廖雪峰python教程&lt;br&gt;
+正则表达式速查&lt;br&gt;
+正则表达式教程&lt;br&gt;
+崔庆才博客（爬虫相关）&lt;br&gt;
+python beautiful soup库的超详细用法&lt;br&gt;
+##实例&lt;br&gt;
+Python-small-examples Documentation&lt;br&gt;
+LeetCode&lt;br&gt;
+干货！python爬虫100个入门项目&lt;br&gt;
+其他相关&lt;br&gt;
+云服务器&lt;br&gt;
+AI学习路线和资源整理&lt;br&gt;
+vpn&lt;/p&gt;
+">【爬虫修炼和实战】一、知识储备和参考</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
 
 <input hidden id="copy" />
 <script>
