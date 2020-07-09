@@ -5,11 +5,11 @@
   <meta charset="UTF-8" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="Gridea静态个人博客">
+<meta name="keywords" content="">
 <meta name="description" content="wangzidong&#39;s blog">
-<meta name="theme-color" content="#000">
+<meta name="theme-color" content="#f8f9fa">
 <title>渊</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1594283551823">
+<link rel="shortcut icon" href="/favicon.ico?v=1594286142939">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -181,10 +181,7 @@
     
     <div class="site-description right-motion">
       
-      
-      
-        <p>菜鸡爬虫工程师</p>
-      
+        <p id="binft">菜鸡爬虫工程师</p>
       
     </div>
     
@@ -293,9 +290,16 @@
   
   
   
+  <div class="bg-img">
+    <img src="\media\images\background.jpg" />
+  </div>
+  
+  
+  
+  
 <link rel="stylesheet" href="/media/live2d/css/live2d.css" />
 <div class="box-scale">
-  <div id="landlord" style="left: 5px;bottom: px;"
+  <div id="landlord" style="left: 50px;bottom: px;"
     data-key="">
     <canvas id="live2d" width="500" height="560" class="live2d"></canvas>
     
@@ -774,7 +778,7 @@
 		}
 		$(document).ready(function () {
 			var AIimgSrc = [];
-			let chooseLive2d = 'tororo'
+			let chooseLive2d = 'aoba'
 			if (chooseLive2d === 'histoire') {
 				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_00.png");
 				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_01.png");
@@ -961,7 +965,7 @@
   }
 
   // 链接跳转
-  let newWindow = 'false'
+  let newWindow = 'true'
   if (newWindow === 'true') {
     let links = document.querySelectorAll('.post-body a')
     links.forEach(item => {
@@ -1302,8 +1306,15 @@
 </script>
 
 
+<script src="/media/js/mouse/peace.js"></script>
 
 
+<script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script src="/media/js/bg/snow.js"></script>
 
 
 </html>

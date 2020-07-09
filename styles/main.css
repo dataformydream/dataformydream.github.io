@@ -2078,19 +2078,19 @@ body {
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
       background: #eeeeeefe;
     }h1, h2, h3, h4, h5, h6 {
-      color: #3b5bdb;
+      color: #212529;
     }
     
     .archive-timeline-title::before {
-      background-color: #3b5bdb;
+      background-color: #212529;
     }
     
     .post-title-link::before {
-      background-color: #3b5bdb;
+      background-color: #212529;
     }
     
     .node-title::before {
-      background-color: #3b5bdb;
+      background-color: #212529;
     }a {
       color: #555;
     }
@@ -2119,7 +2119,7 @@ body {
       background-color:  !important;
     }
       .nav-item a {
-        color:  #555;
+        color:  #212529;
       }.nav-item a:hover {
         color: #222;
       }.nav-item-active {
@@ -2142,43 +2142,53 @@ body {
       color: #eee;
       border-bottom-color: #eee;
     }.markdownIt-TOC a:hover {
-      color: #fff;
-      border-bottom-color: #fff;
+      color: #212529;
+      border-bottom-color: #212529;
     }.active-current > a {
-      color: #fc6423 !important;
-      border-bottom-color: #fc6423 !important;
+      color: #364fc7 !important;
+      border-bottom-color: #364fc7 !important;
     }
     .sidebar-title-active {
-      color: #fc6423 !important;
-      border-bottom-color: #fc6423 !important;
+      color: #364fc7;
+      border-bottom-color: #364fc7;
     }
     .sidebar-title-item:hover {
-      color: #fc6423 !important;
+      color: #364fc7 !important;
     }
     .active-show > a {
-      color: #fc6423;
-      border-bottom-color: #fc6423;
+      color: #364fc7;
+      border-bottom-color: #364fc7;
     }
     .active-hidden > a {
-      color: #fc6423;
-      border-bottom-color: #fc6423;
+      color: #364fc7;
+      border-bottom-color: #364fc7;
     }.bg-color {
       background-color: #fffffffe;
     }
+    .gemini .blog-header, .gemini .sidebar-wrapper, .gemini .article-wrapper, .gemini .post, .gemini .page, .gemini .section, .gemini .section-box, .gemini .sidebar-box, .gemini .friends-section {
+      border-radius: 10px;
+    }
+    .pisces .blog-header, .pisces .sidebar-wrapper, .pisces .article-wrapper, .pisces .section, .pisces .sidebar-box, .pisces .friends-section {
+      border-radius: 10px;
+    }
     .site-meta {
-      background: #000 !important;
+      background: #f8f9fa !important;
     }
     .head-top-line {
-      background: #000;
+      background: #f8f9fa;
     }
     .brand {
-      background: #000000fe;
+      background: #f8f9fafe;
     }
-    .main-title, .brand {
-      color: #FFF !important;
+    
+      .brand {
+        font-weight: bold;
+        transform: scale(2);
+      }.main-title, .brand {
+      color: #212529 !important;
     }
     .mist .site-title i {
-      background: #FFFFFFfe;
+      background: #212529fe;
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
