@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="wangzidong&#39;s blog">
 <meta name="theme-color" content="#212529">
-<title>渊</title>
+<title>ceshi | 渊</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1594290627045">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,6 +38,8 @@
 
 
 
+  <meta name="description" content="ceshi" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -99,7 +101,7 @@
             
               
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/tags/" target="_self">
@@ -170,10 +172,25 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -215,98 +232,245 @@
 
 
 </div>
-</div>
-<script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
-      }
-    });
-  }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section tags-section bg-color posts-expand">
-            <div class="tags-box">
-  <div class="tag-cloud-title language" data-lan="cloud-tags" data-count="1">
-    目前共计 1 个标签
-  </div>
-  <div class="tag-cloud-list" id="tags">
-    
-      
-      
-        
-      
-        
           
-            
-      
         
-          
-            
-      
-      <a class="cloud-tag" href="https://dataformydream.github.io/tag/RSul-ocmJ/" rel="2">爬虫实战</a>
-    
-  </div>
-</div>
-<script>
-
-  let fontStart = 12, fontEnd = 30, colorStart = '#666', colorEnd = '#000';
-  let tags = document.querySelector('#tags').children;
-  let counts = [];
-  for(let i = 0; i < tags.length; i++) {
-    counts.push(tags[i].rel);
-  }
-  let lowest = Math.min.apply(null,counts), highest = Math.max.apply(null,counts);;
-  let range = highest - lowest;
-  if (range === 0) {
-    range = 1;
-  }
-  let fontIncr, colorIncr;
-  fontIncr = (fontEnd - fontStart) / range;
+      </div>
+    </div>
   
-  let sColorArr = toRGB(colorStart), eColorArr = toRGB(colorEnd);
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
 
-  for(let i = 0; i < tags.length; i++) {
-    let disCount = tags[i].rel - lowest;
-    let fontSize = fontStart + disCount * fontIncr;
-    let style = 'font-size: ' + fontSize + 'px;';
-    let arr = [];
-    for(let c = 0; c < sColorArr.length; c++) {
-      if (disCount === 0) {
-        disCount = 1;
-      }
-      let val = (sColorArr[c] - eColorArr[c]) / range * disCount;
-      if (val >= 100) {
-        val = eColorArr[c];
-      } else if (val <= 0) {
-        val = sColorArr[c];
-      }
-      arr[c] = Math.floor(val);
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
     }
-    style += 'color: ' + toHex(arr);
-    tags[i].style = style;
-  }
-
-  function toRGB(code) {
-    if (code.length === 4) {
-      code = code.replace(/(\w)(\w)(\w)/gi, "\$1\$1\$2\$2\$3\$3");
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
     }
-    var hex = /(\w{2})(\w{2})(\w{2})/.exec(code);
-    return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
   }
 
-  function toHex(ary) {
-    return "#" + ((1 << 24) + (ary[0] << 16) + (ary[1] << 8) + ary[2]).toString(16).slice(1);
-  }
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
 
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
 </script>
-          </section>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://dataformydream.github.io/post/ceshi/">
+      ceshi
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-07-09 18:19:53">2020-07-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>11<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>3076<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <p>回过神来陈沫终于理清了思绪，想清楚了自己目前的处境。</p>
+<p>无疑自己被这兄妹救了，最后一点米...陈沫有了些感动。</p>
+<p>“这房屋如此简陋，看样子是朴素的山里人家无疑”陈沐心想。</p>
+<p>他坐起身摸了摸了身上已经被换上的衣服，虽还是薄薄一层，但比之前的好多了，床上铺着一块破旧但干净的褥子，带着些暖。</p>
+<p>这是个山里的村落，那肯定就是有山外人的世界咯，说话也能听懂几分。不是原始蛮荒之地，生存几率也会高出不少吧，至少不是那么水深火热。</p>
+<p>青峰山灵溪村这个名字有点深意啊，不知由来是什么，有机会问一问。</p>
+<p>“昨晚看到的眼睛是什么，野兽？妖怪？那月亮竟然有两个，自己在野外躺了一夜居然没事。”陈沫看着一盏小小暗暗的油灯，那灯芯很长未剪，逃离了灯盏的范围，垂在盏边团成了一朵花，有些昏黄。</p>
+<p>“嗯，首先要摸清楚这个村子的情况，想法解决生存问题。现在的身体感觉还小，大概只有八九岁的样子”陈沐从无边的思维发散中定下神来。</p>
+<p>“孤身一人也太可怜了吧，老天还真看得起我”小脸不由的皱了起来。</p>
+<p>大黄的饼...</p>
+<p>陈沫有些悲哀，不知是为自己，还是前身，好像曾经来过这里，说不定能知道这具身体的来历。</p>
+<p>回想了林边草地的一番遭遇，他嘴角抽搐了一下，觉得他对李铁柱这个名字存在些误解，那人一点都不憨厚老实，那一刻，他想到了朴实的山里人家被李铁柱祸害到苦不堪言的故事。</p>
+<p>至于刚刚女孩直爽讨要的报答，陈沫只能脸红一下尴尬避开，下定决心骗自己良心一次，不好意思啊您咧，我下次一定，小生现在身无分文，自己也不是妖怪变得，不会使什么法术之类，以身相许呢也没有那个条件，反而说不定会被打死。</p>
+<p>这可爱小萝莉还挺好看的嘛，想到这里，陈沐转头望向她，准备露出一副和善的笑。</p>
+<p>眼前的小女孩已经悄声停下了不间断的问题，努力坐直了身好像很久，高高撅着嘴，脸上带着些被忽视的生气，见他看来，小脑袋迅速一扭“哼~”那声音异常神气，显得很是悦耳，嘴边一抹微微的油光在昏暗的油灯映照下一闪而过。</p>
+<p>陈沫有些尴尬“那个，小妹妹你叫啥名字啊”生硬的搭讪。</p>
+<p>一片沉默......</p>
+<p>“月月，月月，那小贼醒来没，娘让你给那小贼的鸡腿快让我先尝尝半个”突然一个努力压低的声音传来，带着一股冷风，敦实的铁柱身影冲进了房间，那灯被风吹的猛地晃了晃，好不容易才稳住身形。</p>
+<p>熊孩总是欠教育的，吾必代乡亲父老狠教之，报一尿之仇。似乎忘了自己比铁柱还小几岁的事实，陈沫更加坚定了自己不切实际的想法，眼中有光闪过，盯着门口的铁柱。</p>
+<p>还是这小妹妹乖巧可爱，好像叫月月是吧，那一刻，他想到了不少的养成故事，陈沫转头温柔看来。</p>
+<p>陈沫看到乖巧的月月小姑娘快速且隐避的踢了一脚床边地面，一块啃干净的鸡骨头咕噜地翻滚到了床下，用力过猛甚至撞在墙壁发出“啪”的一声轻响...</p>
+<p>陈沫有点莫名奇妙的呆。</p>
+<p>小姑娘恶狠狠地用大眼睛瞪了他一眼,反倒显得有些萌...</p>
+<p>小姑娘乘着光线昏暗站起身来，背对铁柱朝陈沫用力挥舞了一下小拳头...</p>
+<p>用她乖乖的语气回答道：“哦，他已经醒啦，鸡腿月月已经喂他吃了呢~”。</p>
+<p>陈沫：“......”</p>
+<p>他面无表情地缓缓地低头，收起了自己危险的想法。</p>
+<p>“哦”</p>
+<p>失望的声音传来，铁柱同学看样子已经相信了，没有丝毫怀疑...</p>
+<p>陈沫小弟弟细思极恐，缓缓打了一个冷战...</p>
+<p>陈沫觉得不管如何，他欠人家一个真诚的报答，这小机灵鬼还是不招惹为好。</p>
+<p>----------------------------------------</p>
+<p>这是一个不大的院子，夜晚淡淡凉风刮过，月色映照中三间半木屋彼此成品字型挨着，那半间小屋子像是后来修建的，依托般挨着一座木屋的外墙，显得低矮和粗糙，与另外三间整齐的木屋显得风格迥然。</p>
+<p>陈沫穿上铁柱翻找出来的旧鞋，在兄妹俩的带领下出了那间矮房，向旁边的木屋走去。</p>
+<p>他感到了风吹拂后的清凉，内心有点忐忑。</p>
+<p>“爹爹，娘，他醒了哦，我把他带来啦~”月月的声音响起，带着些对陈沫识趣的满意和欢快。</p>
+<p>“嗯月月长大了，都会照顾人了呢”一个温柔的声音响起。</p>
+<p>屋里两人在桌旁坐着，穿着是常见的农家样式。家具整齐摆放着，墙上挂了不少弓箭武器，兽皮之类。</p>
+<p>一个忙碌的妇人转过头看来，目光在陈沫脸上停留了一瞬，笑着招手道“都进来吧”，隐约能看出她年轻时的清丽模样。</p>
+<p>陈沫看着比较精致的屋内，打消了这里朴素的想法。</p>
+<p>“休息的还好吗，铁柱把你背来时村里人都吓了一跳。”妇人亲切问道。</p>
+<p>陈沫点了点头，心中有些感激。</p>
+<p>“是哦，哥哥跑的好快，我都快跟不上呢”声音带着些委屈的怨念。</p>
+<p>李铁柱自个乐起来“嘿嘿，兀那小贼不用谢我，我堂堂村中第一少侠”。</p>
+<p>“哼”一声低沉的声音传来，打断了铁柱接下来的吹嘘。</p>
+<p>铁柱的爹黑着脸，“你小子真有本事，村里偷鸡撵狗时常乱窜不说，还拐了你妹妹跑出村外，遇到精怪野兽出事了怎么办，最近在家哪都不许去！刚刚的竹板炒肉没疼是吧，不长记性！”</p>
+<p>“爹，我可是做了好事啊，将功补过，您就放过您儿子吧”铁柱立在桌旁向母亲位置悄悄挪了挪，臀部还生疼，不敢坐在凳子上。</p>
+<p>“嘿，小伙子懂挺多啊...”陈沫有了穿越人士的优越感,有些偷偷的愉悦。</p>
+<p>“以后再和你算账！”男子狠狠瞪了铁柱一眼，面色柔和下来对陈沫说“你叫什么，不用怕，还记得怎么到这里的吗，这大山里猛兽众多，成精的精怪也有不少，村外是很危险的，一般要五六人带武器走几天才能出去”</p>
+<p>陈沫不知从何说起，只能摇摇头说道：“我叫陈沫，怎么到这的却不太记得了”，内心对精怪的出现更加慎重，目光显得茫然起来。</p>
+<p>“这...”男子和妇人对视一眼，有些疑惑。</p>
+<p>沉思了片刻，男子看着妇人对他暗暗点了点头，随即说道“无妨，先在这里住下，说不定能以后能想起什么。”</p>
+<p>“铁柱，你帮他收拾一下那间小屋，从你房间搬套多的桌椅过去，再拿套被褥。”</p>
+<p>“哦”声音显得有些不愿意。</p>
+<p>“快去！！”</p>
+<p>“爹爹，我也去”月月拉着陈沫快速地窜了出去。</p>
+<p>经由了陈沫绞尽脑汁的套话，以及奉承后月月的亲切炫耀，他终于搞清楚了这一家的情况。</p>
+<p>月月本名李溪月，据说是读过几本书的母亲给她起的，她还当面得意地在地上写了写自己的名字，说村里的其他孩子都不识字呐。</p>
+<p>那字体形似隶书，陈沐勉强能看懂，不由得松了口气，至少他的记忆还给带了他许多方面的优势。</p>
+<p>李溪月父名李意，和母亲杨秋兰在铁柱出生后搬到了灵溪村，是村中唯一的外来人家。灵溪村人大多在山中打猎为生，众传山中是有精怪的，不过不常遇到，猎户家家都有习武自保的习惯，这山顶有一条少见的小溪流下，村落依溪而建，更具体的情况小姑娘就不知道了。</p>
+<p>李溪月现在还和父母睡一间房，也就是傍着矮屋的那间，那矮屋原来是间柴房，现在是初春时节，柴已经腾空了，以后就给陈沫住。</p>
+<p>另外一间房当做厨房用，最小一间李铁柱单独住，里面塞了许多他横行村里捡来的战利品，腾桌椅的时候让人不由满头黑线。</p>
+<p>李铁柱虽不情愿展台被收走，干活倒麻利，一个人抱起桌椅跑得飞快，只是对陈沫依然偷饼小贼称之。</p>
+<p>终于一切安静了下来，陈沫坐在小床上定了定神，有了些安稳的感觉。</p>
+<p>“有地方住就好，现在不用苛求太多，山中人家也不易啊”陈沫感叹着迈到了院子，对这对热情的夫妻有了些感激和好感，虽然孩子鬼精不好对付。</p>
+<p>院子用简单的篱笆圈起，一角有个小小的菜园，有几点绿意生长，旁有一口大缸。</p>
+<p>陈沫迈着小步走去，踮起脚想看看自己长啥模样。</p>
+<p>透过不断晃荡的月的倒影，那水面有一个小脑袋从深处快速潜现，小脸过分的清秀，面色苍白带着几分可怜。</p>
+<p>“这怕是假的流浪儿”陈沫无语地看着，水中那张小脸也可爱地皱了皱眉头。</p>
+<p>陈沫抬头看向天空，遍天红色的星和银白的双月给人一种妖异的感觉，宽广地有些莫名的压迫。</p>
+<p>屋中灯接连灭了，院中只剩下一道月光照出的背影孤零零站着。</p>
+<p>夜风吹来旁边房中低低的私语声。</p>
+<p>“那孩子生的俊俏，给月月做个玩伴不错，省得铁柱带坏了她”</p>
+<p>“秋兰你打算把他留在家中吗，他来历不明，身世也不肯说，怕有些奇怪”</p>
+<p>“相公无妨，看他样子不像这山中人，倒像家道中落大户人家孩子失散，不会有人在意的”</p>
+<p>“莫忘了你我逃难至此，杨家这几年还有人在追查呐，谨慎为好”</p>
+<p>“哼，杨家虽家大势大，但也不能肆意妄为，我一旁脉子弟家小姐，人微言轻，又不是什么重要人物，不会一直追索不放，时间久了，也就散了”</p>
+<p>“哎，这山中虽人迹罕至，但也危机四伏，听说周边的几个村子最近打猎时有人没有回来”</p>
+<p>“这里是山脉边缘所在，小心些不会遇到太强的精怪的，铁柱定要管好他，不能再出村了”</p>
+<p>“嗯，食物所剩不多，铁柱年纪也到了，该是用药打熬筋骨的时候，怕是要进山一趟了，接下来辛苦你了。”</p>
+<p>“无妨，那小子这救命收留之恩总要报答吧，一些活让他去做，家中多一个劳力也好，铁柱专心读书习武就是。”</p>
+<p>“哼，说的好像他做过家务似的，哪天不是游手好闲，大字不识一个，那小子瘦瘦弱弱的，让铁柱多操练他，以后当个陪练。”</p>
+<p>“......”</p>
+<p>陈沫在夜风中凌乱，他推翻了醒来时对这家人的印象，说好的朴实热情呢，怎么变成压榨童工了。</p>
+<p>迈步向自己的小柴屋走去，他发现了，这一家子，都不像什么好人！</p>
+<!-- more -->
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      wangzidong
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://dataformydream.github.io/post/ceshi/" title="ceshi">https://dataformydream.github.io/post/ceshi/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="【爬虫修炼和实战】二、从requests开始——爬取喜马拉雅全站音频数据(基础篇)" href="https://dataformydream.github.io/post/pa-chong-xiu-lian-he-shi-zhan-er-cong-requests-kai-shi-pa-qu-xi-ma-la-ya-quan-zhan-yin-pin-shu-ju-ji-chu-pian/">【爬虫修炼和实战】二、从requests开始——爬取喜马拉雅全站音频数据(基础篇)</a>
+        <a class="nav-mobile-next" title="【爬虫修炼和实战】二、从requests开始——爬取喜马拉雅全站音频数据(基础篇)" href="https://dataformydream.github.io/post/pa-chong-xiu-lian-he-shi-zhan-er-cong-requests-kai-shi-pa-qu-xi-ma-la-ya-quan-zhan-yin-pin-shu-ju-ji-chu-pian/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -1040,6 +1204,253 @@
   }
 
 </script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px;border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
   </div>
 </body>
 
@@ -1832,7 +2243,6 @@ vpn&lt;/p&gt;
 
 
 <script src="/media/js/cool.js"></script>
-
 
 
 
