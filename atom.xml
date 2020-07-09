@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dataformydream.github.io</id>
     <title>渊</title>
-    <updated>2020-07-09T10:02:18.988Z</updated>
+    <updated>2020-07-09T10:14:53.161Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dataformydream.github.io"/>
     <link rel="self" href="https://dataformydream.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://dataformydream.github.io/images/avatar.png</logo>
     <icon>https://dataformydream.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 渊</rights>
+    <entry>
+        <title type="html"><![CDATA[【爬虫修炼和实战】二、从requests开始——爬取喜马拉雅全站音频数据(基础篇)]]></title>
+        <id>https://dataformydream.github.io/post/pa-chong-xiu-lian-he-shi-zhan-er-cong-requests-kai-shi-pa-qu-xi-ma-la-ya-quan-zhan-yin-pin-shu-ju-ji-chu-pian/</id>
+        <link href="https://dataformydream.github.io/post/pa-chong-xiu-lian-he-shi-zhan-er-cong-requests-kai-shi-pa-qu-xi-ma-la-ya-quan-zhan-yin-pin-shu-ju-ji-chu-pian/">
+        </link>
+        <updated>2020-07-09T10:10:16.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【爬虫修炼和实战】一、知识储备和参考]]></title>
         <id>https://dataformydream.github.io/post/spider1/</id>
