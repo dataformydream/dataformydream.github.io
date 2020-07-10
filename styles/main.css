@@ -2078,7 +2078,7 @@ p > code {
       border-bottom-color: #555;
     }
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
-      background: #eeeeeee5;
+      background: #212529e5;
     }h1, h2, h3, h4, h5, h6 {
       color: #212529;
     }
@@ -2141,29 +2141,29 @@ p > code {
       transition-duration: 59s;
       transition-timing-function: cubic-bezier(.34,0,.84,1);
     }.markdownIt-TOC a {
-      color: #eee;
-      border-bottom-color: #eee;
-    }.markdownIt-TOC a:hover {
       color: #212529;
       border-bottom-color: #212529;
+    }.markdownIt-TOC a:hover {
+      color: #868e96;
+      border-bottom-color: #868e96;
     }.active-current > a {
-      color: #364fc7 !important;
-      border-bottom-color: #364fc7 !important;
+      color: #f03e3e !important;
+      border-bottom-color: #f03e3e !important;
     }
     .sidebar-title-active {
-      color: #364fc7;
-      border-bottom-color: #364fc7;
+      color: #f03e3e;
+      border-bottom-color: #f03e3e;
     }
     .sidebar-title-item:hover {
-      color: #364fc7 !important;
+      color: #f03e3e !important;
     }
     .active-show > a {
-      color: #364fc7;
-      border-bottom-color: #364fc7;
+      color: #f03e3e;
+      border-bottom-color: #f03e3e;
     }
     .active-hidden > a {
-      color: #364fc7;
-      border-bottom-color: #364fc7;
+      color: #f03e3e;
+      border-bottom-color: #f03e3e;
     }.bg-color {
       background-color: #ffffffe5;
     }
