@@ -9,7 +9,7 @@
 <meta name="description" content="wangzidong&#39;s blog">
 <meta name="theme-color" content="#212529">
 <title>渊</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1594735618153">
+<link rel="shortcut icon" href="/favicon.ico?v=1594736712244">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -128,6 +128,12 @@
             </li>
           
           
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
           
         </ul>
       </nav>
@@ -461,6 +467,406 @@
 </script>
   </div>
 </body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dataformydream.github.io/post/markdown/"" data-c="
+          &lt;p&gt;使用gridea简单搭建了个人博客，想要高效利用，当然是从学会Markdown开始啦。&lt;/p&gt;
+&lt;p&gt;这篇博客总结如何使用Typora和Gridea编辑Markdown博客。&lt;/p&gt;
+&lt;p&gt;编辑器：Gridea、Typora&lt;/p&gt;
+&lt;p&gt;参考网站：&lt;a href=&#34;https://www.runoob.com/markdown/md-tutorial.html&#34;&gt;菜鸟教程&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;编辑器使用&#34;&gt;编辑器使用&lt;/h2&gt;
+&lt;h3 id=&#34;gridea&#34;&gt;Gridea&lt;/h3&gt;
+&lt;p&gt;Gridea主要用来管理博客文章和发布，可设定文章分类，URL等文章信息，支持Markdown编辑（源代码格式，可预览），但功能较少，使用起来不太方便，对新手最友好的办法是Gridea新建博客，设置好博客参数，如图：&lt;/p&gt;
+&lt;img src=&#34;C:\Users\Administrator\Documents\Gridea\post-images\image-20200713162851287.png&#34; alt=&#34;image-20200713162851287&#34; style=&#34;zoom:25%;&#34; /&gt;
+&lt;p&gt;如果用Gridea源代码打开设置好的md文件则会发现，这些设置都保存在md文件的开头，并以分隔符分隔，如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;---
+title: &#39;Markdown学习笔记&#39;
+date: 2020-07-10 16:25:47
+tags: [Markdown]
+published: true
+hideInList: false
+feature: 
+isTop: false
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;font color=red&gt;注意：Gridea只能识别目录下带参数设置头的md文件，推荐在面板设置好再转用Typora编辑，或熟练后直接编辑即可。&lt;/font&gt;&lt;/p&gt;
+&lt;h3 id=&#34;typora&#34;&gt;Typora&lt;/h3&gt;
+&lt;p&gt;比较流行的Markdown编辑器，编辑模式和功能多样，对新手友好，若不熟悉Markdown源码也可流畅使用，界面多样，编写体验满分。&lt;/p&gt;
+&lt;h2 id=&#34;markdown语法&#34;&gt;Markdown语法&lt;/h2&gt;
+&lt;h3 id=&#34;标题&#34;&gt;标题&lt;/h3&gt;
+&lt;p&gt;方法一：&lt;br&gt;
+在标题下方一行标记多个  &lt;code&gt;=&lt;/code&gt;（一级标题）或  &lt;code&gt;-&lt;/code&gt;（二级标题）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;一级标题
+=======
+二级标题
+-------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;方法二（推荐）：&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;#&lt;/code&gt;  表示1-6级标题，几级对应几个  &lt;code&gt;#&lt;/code&gt; ，中间用空格隔开：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;# 一级标题
+## 二级标题
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;段落&#34;&gt;段落&lt;/h3&gt;
+&lt;p&gt;一段话间的行间距较小，使用&lt;code&gt;Enter&lt;/code&gt;换行可另起一段，段落之间的间距为一行。&lt;/p&gt;
+&lt;h3 id=&#34;字体&#34;&gt;字体&lt;/h3&gt;
+&lt;p&gt;文本两边使用&lt;code&gt;*&lt;/code&gt;或者&lt;code&gt;_&lt;/code&gt;为斜体，文本两边使用&lt;code&gt;**&lt;/code&gt;或者&lt;code&gt;__&lt;/code&gt;为粗体。&lt;/p&gt;
+&lt;p&gt;文本两边使用 &lt;code&gt;***&lt;/code&gt;或者&lt;code&gt;___&lt;/code&gt;为粗斜体。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;*斜体*
+**粗体**
+***粗斜体***
+_斜体_
+__粗体__
+___粗斜体___
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;分隔线&#34;&gt;分隔线&lt;/h3&gt;
+&lt;p&gt;一行中使用三个以上的&lt;code&gt;*&lt;/code&gt;、&lt;code&gt;-&lt;/code&gt;、&lt;code&gt;_&lt;/code&gt;表示分割线，中间可有空格。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;**** *
+--- --
+___ __
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;删除线&#34;&gt;删除线&lt;/h3&gt;
+&lt;p&gt;文本两端使用&lt;code&gt;~~&lt;/code&gt;，文本将被划掉。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;~~删除线~~
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;下划线&#34;&gt;下划线&lt;/h3&gt;
+&lt;p&gt;使用HTML&lt;code&gt;&amp;lt;u&amp;gt;&lt;/code&gt;标签实现。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;lt;u&amp;gt;下划线&amp;lt;/u&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;脚注&#34;&gt;脚注&lt;/h3&gt;
+&lt;p&gt;效果：&lt;sup class=&#34;footnote-ref&#34;&gt;&lt;a href=&#34;#fn1&#34; id=&#34;fnref1&#34;&gt;[1]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[^脚注名]
+对应的必须有说明，可放在文章末尾。
+[^脚注名]:脚注的说明
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;列表&#34;&gt;列表&lt;/h3&gt;
+&lt;h4 id=&#34;无序&#34;&gt;无序&lt;/h4&gt;
+&lt;p&gt;使用一个&lt;code&gt;*&lt;/code&gt;、&lt;code&gt;+&lt;/code&gt;、&lt;code&gt;-&lt;/code&gt;做为标记，空格后加上列表名。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;* 第一项
++ 第二项
+- 第三项
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;有序&#34;&gt;有序&lt;/h4&gt;
+&lt;p&gt;使用数字加上&lt;code&gt;.&lt;/code&gt;做为标记，空格后加上列表名。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. 第一项
+2. 第二项
+3. 第三项
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;font color=red&gt;列表可嵌套，子列表需要四个空格的缩进。&lt;/font&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;1. 第一项
+    * 第一小项
+    * 第二小项
+2. 第二项
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;区块&#34;&gt;区块&lt;/h3&gt;
+&lt;p&gt;每行的开头使用&lt;code&gt;&amp;gt;&lt;/code&gt;+空格，可建立一个区块，区块和列表可以互相嵌套。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;gt; 第一层区块
+&amp;gt;&amp;gt; 第二层区块
+&amp;gt;&amp;gt; 1. 第一项
+&amp;gt;&amp;gt; 2. 第二项
+&amp;gt;&amp;gt;&amp;gt; 第三层区块
+&amp;gt;&amp;gt;&amp;gt; + 第一项
+&amp;gt;&amp;gt;&amp;gt; + 第二项
+
++ 第一项
+    &amp;gt; 使用四个空格
+    &amp;gt;
++ 第二项
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第一层区块&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第二层区块&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;第一项&lt;/li&gt;
+&lt;li&gt;第二项&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第三层区块&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一项&lt;/li&gt;
+&lt;li&gt;第二项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;第一项
+&lt;blockquote&gt;
+&lt;p&gt;使用四个空格&lt;br&gt;
+使用四个空格&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;第二项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;代码块&#34;&gt;代码块&lt;/h3&gt;
+&lt;p&gt;段落中的代码文本两边使用反引号&lt;kbd&gt;`&lt;/kbd&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;`print()`函数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;print()&lt;/code&gt;函数&lt;/p&gt;
+&lt;p&gt;代码区块使用四个空格或&lt;code&gt;TAB&lt;/code&gt;键。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;	import requests
+	def get_url(url):
+		response=requests.get(url,headers={&#39;User-Agent&#39;:&#39;mazzia&#39;},timeout=None)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;或者用&lt;kbd&gt;```&lt;/kbd&gt;包裹一整段代码，开头可指定语言。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;​```python
+import requests
+def get_url(url):
+	response=requests.get(url,headers={&#39;User-Agent&#39;:&#39;mazzia&#39;},timeout=None)
+​```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;链接&#34;&gt;链接&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[链接名称](链接地址)  或  &amp;lt;链接地址&amp;gt;
+&amp;lt;https://baidu.com&amp;gt;
+[百度](https://baidu.com)
+高级链接：
+[baidu][1]
+必须对应：
+[1]:https://baidu.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;图片&#34;&gt;图片&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;![alt 属性文本](图片地址)
+![alt 属性文本](图片地址 &amp;quot;可选标题&amp;quot;)
+或高级链接：
+[picture][1]
+必须对应：
+[1]:图片地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;还可以使用更多功能的&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;标签&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;img src=&amp;quot;C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200713162851287.png&amp;quot; alt=&amp;quot;image-20200713162851287&amp;quot; style=&amp;quot;zoom:25%;&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;表格&#34;&gt;表格&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+
+| 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
+&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;表头&lt;/th&gt;
+&lt;th&gt;表头&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;单元格&lt;/td&gt;
+&lt;td&gt;单元格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;单元格&lt;/td&gt;
+&lt;td&gt;单元格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;左对齐&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;右对齐&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;居中对齐&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;单元格&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;单元格&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;单元格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;单元格&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;单元格&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;单元格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;font color=red&gt;Markdown源码生成表格较麻烦，推荐退出源代码模式，使用右键插入表格。&lt;/font&gt;&lt;/p&gt;
+&lt;h2 id=&#34;markdown高级技巧&#34;&gt;Markdown高级技巧&lt;/h2&gt;
+&lt;h3 id=&#34;支持html元素&#34;&gt;支持HTML元素&lt;/h3&gt;
+&lt;p&gt;目前支持的HTML元素有&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;kbd&amp;gt; &amp;lt;b&amp;gt; &amp;lt;i&amp;gt; &amp;lt;em&amp;gt; &amp;lt;sup&amp;gt; &amp;lt;sub&amp;gt; &amp;lt;br&amp;gt; 等
+&amp;lt;kbd&amp;gt;F12&amp;lt;/kbd&amp;gt;打开开发者工具
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;kbd&gt;F12&lt;/kbd&gt;打开开发者工具&lt;/p&gt;
+&lt;h3 id=&#34;文本变色&#34;&gt;文本变色&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;lt;font color=red&amp;gt;我是红色&amp;lt;/font&amp;gt;
+&amp;lt;font color=blue&amp;gt;我是蓝色&amp;lt;/font&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;font color=red&gt;我是红色&lt;/font&gt;&lt;br&gt;
+&lt;font color=blue&gt;我是蓝色&lt;/font&gt;&lt;/p&gt;
+&lt;h3 id=&#34;字体设置&#34;&gt;字体设置&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;lt;font face=&amp;quot;STCAIYUN&amp;quot; color=#00ffff&amp;gt;华文彩云&amp;lt;/font&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;font face=&#34;STCAIYUN&#34; color=#00ffff&gt;华文彩云&lt;/font&gt;&lt;/p&gt;
+&lt;h3 id=&#34;转义&#34;&gt;转义&lt;/h3&gt;
+&lt;p&gt;使用反斜杠转义&lt;code&gt;\&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;lt;kbd&amp;gt;\\&amp;lt;/kbd&amp;gt;
+\*  \`  \\  \_  \{  \}  \[  \]  \(  \)  \#  \+  \-  \.  \!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;*  `  \  _  {  }  [  ]  (  )  #  +  -  .  !&lt;/p&gt;
+&lt;h3 id=&#34;公式&#34;&gt;公式&lt;/h3&gt;
+&lt;p&gt;&lt;font color=red&gt;公式设置和编码较为麻烦，本博客数学公式使用MathJax语法&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;MathJax语法使用教程：&lt;a href=&#34;https://oysz2016.github.io/post/8611e6fb.html&#34;&gt;https://oysz2016.github.io/post/8611e6fb.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用两个&lt;code&gt;$&lt;/code&gt;包裹TeX或LaTeX格式公式。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;$$
+W_G^{mn}=max\{0,W_G.\xi_G(f_G^m,f_G^n)\}
+$$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p class=&#39;katex-block&#39;&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msubsup&gt;&lt;mi&gt;W&lt;/mi&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msubsup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;{&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;W&lt;/mi&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;/msub&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;ξ&lt;/mi&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;msubsup&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msubsup&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;msubsup&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msubsup&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;}&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;W_G^{mn}=max\{0,W_G.\xi_G(f_G^m,f_G^n)\}
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.9613919999999999em;vertical-align:-0.247em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.13889em;&#34;&gt;W&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7143919999999999em;&#34;&gt;&lt;span style=&#34;top:-2.4530000000000003em;margin-left:-0.13889em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;G&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.247em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.16666666666666666em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.13889em;&#34;&gt;W&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.32833099999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;G&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.04601em;&#34;&gt;ξ&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.32833099999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:-0.04601em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;G&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7143919999999999em;&#34;&gt;&lt;span style=&#34;top:-2.4530000000000003em;margin-left:-0.10764em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;G&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.247em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.16666666666666666em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7143919999999999em;&#34;&gt;&lt;span style=&#34;top:-2.4530000000000003em;margin-left:-0.10764em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;G&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.247em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;流程图-时序图-甘特图&#34;&gt;流程图、时序图、甘特图&lt;/h3&gt;
+&lt;p&gt;&lt;font color=red&gt;博客暂不支持，可参考菜鸟教程链接的笔记部分:&lt;/font&gt;&lt;a href=&#34;https://www.runoob.com/markdown/md-advance.html&#34;&gt;https://www.runoob.com/markdown/md-advance.html&lt;/a&gt;&lt;/p&gt;
+&lt;hr class=&#34;footnotes-sep&#34;&gt;
+&lt;section class=&#34;footnotes&#34;&gt;
+&lt;ol class=&#34;footnotes-list&#34;&gt;
+&lt;li id=&#34;fn1&#34; class=&#34;footnote-item&#34;&gt;&lt;p&gt;这是一个脚注。 &lt;a href=&#34;#fnref1&#34; class=&#34;footnote-backref&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+">Markdown学习笔记</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
 
 <input hidden id="copy" />
 <script>
