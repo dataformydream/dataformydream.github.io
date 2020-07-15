@@ -2078,7 +2078,7 @@ p > code {
       border-bottom-color: #555;
     }
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
-      background: #212529b2;
+      background: #212529cc;
     }h1, h2, h3, h4, h5, h6 {
       color: #212529;
     }
@@ -2125,11 +2125,11 @@ p > code {
       }.nav-item a:hover {
         color: #222;
       }.nav-item-active {
-      background: #f9f9f9b2;
+      background: #f9f9f9cc;
     }
 
     .nav-item:hover {
-      background: #f9f9f9b2;
+      background: #f9f9f9cc;
       color: rgba(0, 0, 0, 0.98);
     }.site-author-image {
       border-radius: 50%;
@@ -2165,7 +2165,7 @@ p > code {
       color: #e03131;
       border-bottom-color: #e03131;
     }.bg-color {
-      background-color: #ffffffb2;
+      background-color: #ffffffcc;
     }
     .gemini .blog-header, .gemini .sidebar-wrapper, .gemini .article-wrapper, .gemini .post, .gemini .page, .gemini .section, .gemini .section-box, .gemini .sidebar-box, .gemini .friends-section {
       border-radius: 10px;
@@ -2180,7 +2180,7 @@ p > code {
       background: #212529;
     }
     .brand {
-      background: #212529b2;
+      background: #212529cc;
     }
     
       .brand {
@@ -2190,7 +2190,7 @@ p > code {
       color: #f8f9fa !important;
     }
     .mist .site-title i {
-      background: #f8f9fab2;
+      background: #f8f9facc;
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
