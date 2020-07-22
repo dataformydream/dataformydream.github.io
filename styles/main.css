@@ -2066,16 +2066,16 @@ p > code {
       }
     
     .post-body {
-      font-size: 18px !important
+      font-size: 20px !important
     }
     body {
-      color: #555;
+      color: #212529;
     }
     .next-md-body {
-      color: #555;
+      color: #212529;
     }
     .next-md-body h1, .next-md-body h2 {
-      border-bottom-color: #555;
+      border-bottom-color: #212529;
     }
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
       background: #212529cc;
@@ -2165,7 +2165,7 @@ p > code {
       color: #e03131;
       border-bottom-color: #e03131;
     }.bg-color {
-      background-color: #ffffffcc;
+      background-color: #f8f9facc;
     }
     .gemini .blog-header, .gemini .sidebar-wrapper, .gemini .article-wrapper, .gemini .post, .gemini .page, .gemini .section, .gemini .section-box, .gemini .sidebar-box, .gemini .friends-section {
       border-radius: 10px;
